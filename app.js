@@ -197,7 +197,7 @@ function exportToPDF() {
       doc.text(section, 10, y);
       y += 5;
       doc.setFont("helvetica", "normal");
-      selectedItems[section].forEach(item => {
+      [...selectedItems[section]].sort((a, b) => a.localeCompare(b)).forEach(item => {
         if (y > 280) { doc.addPage(); y = 10; }
         doc.text("- " + item, 14, y);
         y += 5;
