@@ -1,3 +1,5 @@
+let sectionObserver;
+
 let sections = JSON.parse(localStorage.getItem("sections")) || {
     "Alcohol and Spirits": ["Whiskey", "Vodka", "Gin"],
     "Beer and Cider": ["Lager", "Ale", "Cider"],
@@ -214,17 +216,30 @@ function exportToPDF() {
     doc.save("Selected_Items.pdf");
 }
 
-window.addEventListener("scroll", () => {
-    const sectionsHeadings = document.querySelectorAll("h2");
-    let current = currentVisibleSection;
-    sectionsHeadings.forEach((heading) => {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
-            current = heading.querySelector(".section-name").textContent;
-        }
+function setupSectionObserver() {
+    if (sectionObserver) {
+        sectionObserver.disconnect();
+    }
+
+    const headings = document.querySelectorAll("h2");
+
+    sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionName = entry.target.querySelector(".section-name").textContent;
+                currentVisibleSection = sectionName;
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: "0px 0px -70% 0px",
+        threshold: 0
     });
-    currentVisibleSection = current;
-});
+
+    headings.forEach(heading => sectionObserver.observe(heading));
+}
+
+
 
 function addItemToVisibleSection() {
     addItem(currentVisibleSection);
@@ -250,3 +265,5 @@ function renderGoToButtons() {
 
 // Initial render
 renderList();
+setupSectionObserver();
+
