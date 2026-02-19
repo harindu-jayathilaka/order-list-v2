@@ -1,4 +1,5 @@
 let sections = JSON.parse(localStorage.getItem("sections")) || {
+  "Wines": ["Red Wine", "White Wine", "Rose Wine"],
   "Alcohol and Spirits": ["Whiskey", "Vodka", "Gin"],
   "Beer and Cider": ["Lager", "Ale", "Cider"],
   "Drinks - Can": ["Coke Can", "Pepsi Can"],
@@ -189,8 +190,9 @@ function exportToPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   let y = 10;
-  for (const section in selectedItems) {
-    if (selectedItems[section].length > 0) {
+  // Iterate sections in app order, not selectedItems insertion order
+  for (const section in sections) {
+    if (selectedItems[section] && selectedItems[section].length > 0) {
       doc.setFont("helvetica", "bold");
       doc.text(section, 10, y);
       y += 5;
