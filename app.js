@@ -1,5 +1,4 @@
 let sections = JSON.parse(localStorage.getItem("sections")) || {
-  "Wines": ["Red Wine", "White Wine", "Rose Wine"],
   "Alcohol and Spirits": ["Whiskey", "Vodka", "Gin"],
   "Beer and Cider": ["Lager", "Ale", "Cider"],
   "Drinks - Can": ["Coke Can", "Pepsi Can"],
@@ -9,9 +8,9 @@ let sections = JSON.parse(localStorage.getItem("sections")) || {
   "Mineral Water": ["Still Water", "Sparkling Water"],
   "Grocery": ["Rice", "Sugar", "Flour"],
   "Household": ["Detergent", "Toilet Paper"],
+  "Pet Foods": ["Dog Food", "Cat Food"],
   "Chilled Items": ["Milk", "Cheese", "Yogurt"],
   "Crisps": ["Potato Chips", "Corn Chips"],
-  "Pet Foods": ["Dog Food", "Cat Food"],
   "Sweets": ["Chocolate", "Candy"]
 };
 
